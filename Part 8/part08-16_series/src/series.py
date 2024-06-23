@@ -1,43 +1,57 @@
 # Write your solution here:
-class Series(object):
-    def __init__(self, title, seasons: int, genres: list):
+class Series:
+    def __init__(self, title: str, seasons: int, genres: list):
         self.title = title
         self.seasons = seasons
         self.genres = genres
-        self.ratings = []
+        self.ratings = [0, 0, 0, 0, 0, 0]
+        self.number_of_ratings = 0
 
-    def rate(self, rating: int):
-        if 0 <= rating <= 5:
-            self.ratings.append(rating)
+    def grade(self):
+        if self.number_of_ratings == 0:
+            return 0
+        else:
+            grade_sum = 0
+            for i in range(0, 6):
+                grade_sum += self.ratings[i] * i
+
+            return grade_sum / self.number_of_ratings
+
+    def rate(self, grade: int):
+        self.number_of_ratings += 1
+        self.ratings[grade] += 1
 
     def __str__(self):
-        title = '{} ({} seasons)'.format(self.title, self.seasons)
-        genres = 'genres: ' + ', '.join(self.genres)
-        ratings = 'no ratings'
-        if len(self.ratings) > 0:
-            ratings = '{} ratings, average {:.1f} points'.format(len(self.ratings), sum(self.ratings) / len(self.ratings))
+        genres = ', '.join(self.genres)
+        if self.number_of_ratings == 0:
+            ratings = 'no ratings'
+        else:
+            grade_sum = 0
+            for i in range(0, 6):
+                grade_sum += self.ratings[i] * i
 
-        return '{}\n{}\n{}'.format(title, genres, ratings)
+            ka = grade_sum / self.number_of_ratings
+            ratings = f'{self.number_of_ratings} ratings, average {ka:.1f} points'
 
-
-def minimum_grade(rating: float, series: list) -> list:
-    new_series = []
-    for serie in series:
-        for rate in serie.ratings:
-            if rate > rating:
-                new_series.append(serie)
-                break
-
-    return new_series
+        return f'{self.title} ({self.seasons} seasons)\ngenres: {genres}\n{ratings}'
 
 
-def includes_genre(genre: str, series: list) -> list:
-    new_series = []
-    for serie in series:
-        if genre in serie.genres:
-            new_series.append(serie)
+def minimum_grade(grade: float, seriest: list):
+    result = []
+    for series in seriest:
+        if series.grade() >= grade:
+            result.append(series)
 
-    return new_series
+    return result
+
+
+def includes_genre(genre: str, seriest: list):
+    result = []
+    for series in seriest:
+        if genre in series.genres:
+            result.append(series)
+
+    return result
 
 
 if __name__ == '__main__':
