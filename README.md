@@ -163,6 +163,24 @@ To successfully complete this course, you will need to complete the programming 
     - Feedback, part 14
     - Final quiz, Advanced Course
 
+## Progress
+
+- [x] Introduction to Programming course (BSCS1001, 5 ECTS)
+  - [x] Part 1
+  - [x] Part 2
+  - [x] Part 3
+  - [x] Part 4
+  - [x] Part 5
+  - [x] Part 6
+  - [x] Part 7
+- [x] Advanced Course in Programming (BSCS1002, 5 ECTS)
+  - [x] Part 8
+  - [ ] Part 9
+  - [ ] Part 10
+  - [ ] Part 11
+  - [ ] Part 12
+  - [ ] Part 13
+  - [ ] Part 14
 
 ## About Me
 
