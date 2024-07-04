@@ -175,7 +175,7 @@ To successfully complete this course, you will need to complete the programming 
   - [x] Part 7
 - [x] Advanced Course in Programming (BSCS1002, 5 ECTS)
   - [x] Part 8
-  - [ ] Part 9
+  - [x] Part 9
   - [ ] Part 10
   - [ ] Part 11
   - [ ] Part 12
