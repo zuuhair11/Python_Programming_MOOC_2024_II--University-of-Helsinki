@@ -6,10 +6,10 @@ class Item:
 
     def name(self):
         return self.__name
-    
+
     def weight(self):
         return self.__weight
-    
+
     def __str__(self):
         return '{} ({} kg)'.format(self.__name, self.__weight)
 
@@ -31,7 +31,7 @@ class Suitcase:
 
     def weight(self):
         return sum(item.weight() for item in self.__items)
-    
+
     def heaviest_item(self):
         if len(self.__items) == 0:
             return None
@@ -44,10 +44,9 @@ class Suitcase:
         return heaviest
 
     def __str__(self):
-        stored_weight = sum(item.weight() for item in self.__items)
-        item_or_items = 'item' if len(self.__items) == 1 else 'items'
+        end_s = 's' if len(self.__items) != 1 else ''
 
-        return f'{len(self.__items)} {item_or_items} ({stored_weight} kg)'
+        return f'{len(self.__items)} item{end_s} ({self.weight()} kg)'
 
 
 class CargoHold:
@@ -56,19 +55,25 @@ class CargoHold:
         self.__suitcases = []
 
     def add_suitcase(self, new_suitcase: Suitcase):
-        all_weight = sum(suitcase.weight() for suitcase in self.__suitcases)
+        if (self.weight() + new_suitcase.weight()) > self.__max_weight:
+            return
 
-        if (all_weight + new_suitcase.weight()) <= self.__max_weight:
-            self.__suitcases.append(new_suitcase)
+        self.__suitcases.append(new_suitcase)
 
     def print_items(self):
         for suitcase in self.__suitcases:
             suitcase.print_items()
 
+    def weight(self):
+        p = 0
+        for suitcase in self.__suitcases:
+            p += suitcase.weight()
+
+        return p
+
     def __str__(self):
-        all_weight = sum(suitcase.weight() for suitcase in self.__suitcases)
-        suitcase_or_suitcases = 'suitcase' if len(self.__suitcases) == 1 else 'suitcases'
-        return f'{len(self.__suitcases)} {suitcase_or_suitcases}, space for {self.__max_weight - all_weight} kg'
+        end_s = 's' if len(self.__suitcases) != 1 else ''
+        return f'{len(self.__suitcases)} suitcase{end_s}, space for {self.__max_weight - self.weight()} kg'
 
 
 if __name__ == '__main__':
