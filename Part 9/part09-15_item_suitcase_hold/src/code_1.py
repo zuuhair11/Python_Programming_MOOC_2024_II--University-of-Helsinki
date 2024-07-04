@@ -27,8 +27,9 @@ class Suitcase:
 
     def __str__(self):
         stored_weight = sum(item.weight() for item in self.__items)
+        item_or_items = 'item' if len(self.__items) == 1 else 'items'
 
-        return f'{len(self.__items)} items ({stored_weight} kg)'
+        return f'{len(self.__items)} {item_or_items} ({stored_weight} kg)'
 
 
 if __name__ == '__main__':
