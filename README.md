@@ -182,6 +182,14 @@ To successfully complete this course, you will need to complete the programming 
   - [ ] Part 13
   - [ ] Part 14
 
+## Notes and Resources
+
+Throughout the course, I will be taking detailed notes and compiling resources to aid in understanding and applying the concepts covered. You can access my notes on Notion using the following link:
+
+[My BSCS1002 Notes on Notion](https://www.notion.so/The-Advanced-Python-Programming-course-a52f0129a64646ffaacf99945c5556d0?pvs=4)
+
+Feel free to explore and use these notes as a supplementary resource to enhance your learning experience.
+
 ## About Me
 
 Hi there! 👋 I'm Zouhair, a passionate software developer currently diving deep into the world of Python programming. I'm enrolled in the Advanced Python Programming course at the University of Helsinki, where I'm learning about advanced concepts in object-oriented programming, functional programming, and game development using Pygame.
