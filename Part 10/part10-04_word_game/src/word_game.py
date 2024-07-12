@@ -1,5 +1,4 @@
 # Write your solution here
-from typing import Optional
 import random
 
 class WordGame():
@@ -8,7 +7,7 @@ class WordGame():
         self.wins2: int = 0
         self.rounds: int = rounds
 
-    def round_winner(self, player1_word: str, player2_word: str):
+    def round_winner(self, player1_word: str, player2_word: str) -> int:
         # determine a random winner
         return random.randint(1, 2)
 
@@ -37,11 +36,13 @@ class LongestWord(WordGame):
     def __init__(self, rounds: int):
         super().__init__(rounds)
 
-    def round_winner(self, player1_word: str, player2_word: str):
+    def round_winner(self, player1_word: str, player2_word: str) -> int:
         if len(player1_word) > len(player2_word):
             return 1
         elif len(player2_word) > len(player1_word):
             return 2
+
+        return 0
 
 
 class MostVowels(WordGame):
@@ -58,7 +59,7 @@ class MostVowels(WordGame):
 
         return count
 
-    def round_winner(self, player1_word: str, player2_word: str) -> Optional[int]:
+    def round_winner(self, player1_word: str, player2_word: str) -> int:
         player1: int = self.__count_vowels(player1_word)
         player2: int = self.__count_vowels(player2_word)
 
@@ -67,7 +68,37 @@ class MostVowels(WordGame):
         elif player2 > player1:
             return 2
 
+        return 0
+
+
+class RockPaperScissors(WordGame):
+    def __init__(self, rounds: int):
+        super().__init__(rounds)
+
+    def round_winner(self, player1_word: str, player2_word: str) -> int:
+        choices: dict = {'rock' : 0, 'paper': 1, 'scissors': 2}
+
+        if player1_word not in choices.keys() and player2_word not in choices.keys():
+            return 0
+
+        if player1_word not in choices.keys():
+            return 2
+
+        if player2_word not in choices.keys():
+            return 1
+
+        # Based on the difference we can find out who win or both choose the same choice
+        difference = choices[player1_word] - choices[player2_word]
+
+        if difference == 0:
+            return 0
+
+        if difference == 1 or difference == -2:
+            return 1
+
+        return 2
+
 
 if __name__ == '__main__':
-    p = LongestWord(3)
+    p = RockPaperScissors(4)
     p.play()
