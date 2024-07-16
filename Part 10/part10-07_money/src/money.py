@@ -10,15 +10,21 @@ class Money:
     
     def __eq__(self, another: 'Money') -> bool:
         return (self.euros == another.euros) and (self.cents == another.cents)
+    
+    def __ne__(self, another: 'Money') -> bool:
+        return self.euros + self.cents != another.euros + another.cents
+    
+    def __lt__(self, another: 'Money') -> bool:
+        return self.euros + self.cents < another.euros + another.cents
+    
+    def __gt__(self, another: 'Money') -> bool:
+        return self.euros + self.cents > another.euros + another.cents
 
 
 if __name__ == '__main__':
     e1 = Money(4, 10)
     e2 = Money(2, 5)
-    e3 = Money(4, 10)
 
-    print(e1)
-    print(e2)
-    print(e3)
-    print(e1 == e2)
-    print(e1 == e3)
+    print(e1 != e2)
+    print(e1 < e2)
+    print(e1 > e2)
