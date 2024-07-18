@@ -61,14 +61,24 @@ class SimpleDate:
                     new_d.yy += 1
 
         return new_d
+    
+    def __sub__(self, another: 'SimpleDate') -> int:
+        years: int = (self.yy - another.yy) * 360
+        months: int = (self.mm - another.mm) * 30
+        days: int = (self.dd - another.dd)
+
+        return abs(years + months + days)
 
 
 if __name__ == '__main__':
-    d1 = SimpleDate(4, 10, 2020)
-    d2 = SimpleDate(28, 12, 1985)
-    d3 = d1 + 3
-    d4 = d2 + 400
+    # d1 = SimpleDate(4, 10, 2020)
+    # d2 = SimpleDate(28, 12, 1985)
+    # d3 = d1 + 3
+    # d4 = d2 + 400
     # d3 = SimpleDate(28, 12, 1985)
+    d1 = SimpleDate(4, 10, 2020)
+    d2 = SimpleDate(2, 11, 2020)
+    d3 = SimpleDate(28, 12, 1985)
 
     # print(d1)
     # print(d2)
@@ -78,7 +88,11 @@ if __name__ == '__main__':
     # print(d1 < d2)
     # print(d1 > d2)
 
-    print(d1)
-    print(d2)
-    print(d3)
-    print(d4)
+    # print(d1)
+    # print(d2)
+    # print(d3)
+    # print(d4)
+
+    print(d2-d1)
+    print(d1-d2)
+    print(d1-d3)
