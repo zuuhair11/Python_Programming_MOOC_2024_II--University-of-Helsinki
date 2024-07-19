@@ -8,66 +8,36 @@ class SimpleDate:
     def __str__(self) -> str:
         return '%d.%d.%d' % (self.dd, self.mm, self.yy)
 
+    # Comparisons are easier now, when date converted into days
+    def __convert_to_days(self) -> int:
+        return self.yy * 360 + self.mm * 30 + self.dd
+
+    # Converst days back to date
+    def __to_date(self, n_days: int) -> 'SimpleDate':
+        years: int = n_days // 360
+        months: int = n_days // 30
+        days: int = n_days - (months * 30)
+        months -= years * 12
+
+        return SimpleDate(days, months, years)
+
     def __lt__(self, another: 'SimpleDate') -> bool:
-        if self.yy < another.yy:
-            return True
-        elif self.yy == another.yy:
-            if self.mm < another.mm:
-                return True
-            elif self.mm == another.mm:
-                if self.dd < another.dd:
-                    return True
-                elif self.dd > another.dd:
-                    return False
-            else:
-                return False
-        else:
-            return False
+        return self.__convert_to_days() < another.__convert_to_days()
 
     def __gt__(self, another: 'SimpleDate') -> bool:
-        if self.yy > another.yy:
-            return True
-        elif self.yy == another.yy:
-            if self.mm > another.mm:
-                return True
-            elif self.mm == another.mm:
-                if self.dd > another.dd:
-                    return True
-                else:
-                    return False
-            else:
-                return False
-        else:
-            return False
+        return self.__convert_to_days() > another.__convert_to_days()
 
     def __eq__(self, another: 'SimpleDate') -> bool:
-        return self.dd == another.dd and self.mm == another.mm and self.yy == another.yy
+        return self.__convert_to_days() == another.__convert_to_days()
 
     def __ne__(self, another: 'SimpleDate') -> bool:
-        return self.dd != another.dd or self.mm != another.mm or self.yy != another.yy
-    
+        return self.__convert_to_days() != another.__convert_to_days()
+
     def __add__(self, n_days: int) -> 'SimpleDate':
-        new_d = SimpleDate(self.dd, self.mm, self.yy)
+        return self.__to_date(self.__convert_to_days() + n_days)
 
-        for _ in range(n_days):
-            new_d.dd += 1
-
-            if new_d.dd > 30:
-                new_d.dd = 1
-                new_d.mm += 1
-
-                if new_d.mm > 12:
-                    new_d.mm = 1
-                    new_d.yy += 1
-
-        return new_d
-    
     def __sub__(self, another: 'SimpleDate') -> int:
-        years: int = (self.yy - another.yy) * 360
-        months: int = (self.mm - another.mm) * 30
-        days: int = (self.dd - another.dd)
-
-        return abs(years + months + days)
+        return abs(self.__convert_to_days() - another.__convert_to_days())
 
 
 if __name__ == '__main__':
