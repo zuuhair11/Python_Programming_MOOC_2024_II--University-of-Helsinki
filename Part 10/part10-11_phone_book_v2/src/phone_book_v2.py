@@ -31,11 +31,17 @@ class PhoneBook:
 
         self.__persons[name].add_number(number)
 
+    def add_address(self, name: str, new_address: str) -> None:
+        if name not in self.__persons:
+            self.__persons[name] = Person(name)
+
+        self.__persons[name].add_address(new_address)
+
     def get_entry(self, name: str) -> list:
         if not name in self.__persons:
             return None
 
-        return self.__persons[name].numbers()
+        return self.__persons[name]
 
     def all_entries(self) -> dict:
         return self.__persons
@@ -50,22 +56,40 @@ class PhoneBookApplication:
         print('0 exit')
         print('1 add number')
         print('2 search')
+        print('3 add address')
 
     def add_number(self) -> None:
         name: str = input('name: ')
         number: str = input('number: ')
         self.__phonebook.add_number(name, number)
 
+    def add_address(self) -> None:
+        name: str = input('name: ')
+        address: str = input('address: ')
+
+        self.__phonebook.add_address(name, address)
+
     def search(self) -> None:
         name: str = input('name: ')
-        numbers: list = self.__phonebook.get_entry(name)
+        person: Person = self.__phonebook.get_entry(name)
 
-        if numbers == None:
+        if person is not None:
+            address: str = person.address()
+            numbers: list = person.numbers()
+
+            if not len(numbers):
+                print('number unknown')
+            else:
+                for number in person.numbers():
+                    print(number)
+
+            if address == None:
+                print('address unknown')
+            else:
+                print(address)
+        else:
             print('number unknown')
-            return
-
-        for number in numbers:
-            print(number)
+            print('address unknown')
 
     def execute(self) -> None:
         self.help()
@@ -79,6 +103,8 @@ class PhoneBookApplication:
                 self.add_number()
             elif command == '2':
                 self.search()
+            elif command == '3':
+                self.add_address()
             else:
                 self.help()
 
