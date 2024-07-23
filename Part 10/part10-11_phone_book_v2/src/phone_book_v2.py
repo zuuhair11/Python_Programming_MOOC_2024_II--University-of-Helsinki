@@ -27,15 +27,15 @@ class PhoneBook:
 
     def add_number(self, name: str, number: str) -> None:
         if not name in self.__persons:
-            self.__persons[name] = []
+            self.__persons[name] = Person(name)
 
-        self.__persons[name].append(number)
+        self.__persons[name].add_number(number)
 
     def get_entry(self, name: str) -> list:
         if not name in self.__persons:
             return None
 
-        return self.__persons[name]
+        return self.__persons[name].numbers()
 
     def all_entries(self) -> dict:
         return self.__persons
@@ -52,16 +52,16 @@ class PhoneBookApplication:
         print('2 search')
 
     def add_number(self) -> None:
-        name = input('name: ')
-        number = input('number: ')
+        name: str = input('name: ')
+        number: str = input('number: ')
         self.__phonebook.add_number(name, number)
 
     def search(self) -> None:
-        name = input('name: ')
-        numbers = self.__phonebook.get_entry(name)
+        name: str = input('name: ')
+        numbers: list = self.__phonebook.get_entry(name)
 
         if numbers == None:
-            print('number unknown') 
+            print('number unknown')
             return
 
         for number in numbers:
@@ -84,14 +84,5 @@ class PhoneBookApplication:
 
 
 # # when testing, no code should be outside application except the following:
-# application = PhoneBookApplication()
-# application.execute()
-if __name__ == '__main__':
-    person = Person('Eric')
-    print(person.name())
-    print(person.numbers())
-    print(person.address())
-    person.add_number('040-123456')
-    person.add_address('Mannerheimintie 10 Helsinki')
-    print(person.numbers())
-    print(person.address())
+application = PhoneBookApplication()
+application.execute()
