@@ -89,7 +89,7 @@ class CourseRecordsApplication:
         print('grade distribution')
 
         for key, value in grade_distribution.items():
-            print(f'{key}: {value}')
+            print('{}: {}'.format(key, value))
 
 
 class UserInterface:
