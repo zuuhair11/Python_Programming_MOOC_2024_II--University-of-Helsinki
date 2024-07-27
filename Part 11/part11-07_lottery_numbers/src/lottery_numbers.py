@@ -29,9 +29,13 @@ class LotteryNumbers:
     def number_of_hits(self, numbers: list) -> int:
         return len([number for number in numbers if number in self.__weeks])
 
+    def hits_in_place(self, numbers: list) -> list:
+        # return [numbers[i] if numbers[i] == self.__weeks[i] else -1 for i in range(len(numbers))]
+        return [number if number in self.__weeks else -1 for number in numbers]
+
 
 if __name__ == '__main__':
-    week5 = LotteryNumbers(5, [1, 2, 3, 4, 5, 6, 7])
-    numbers = [1,4,7,11,13,19,24]
+    week8 = LotteryNumbers(8, [1, 2, 3, 10, 20, 30, 33])
+    my_numbers = [1, 4, 7, 10, 11, 20, 30]
 
-    print(week5.number_of_hits(numbers))
+    print(week8.hits_in_place(my_numbers))
