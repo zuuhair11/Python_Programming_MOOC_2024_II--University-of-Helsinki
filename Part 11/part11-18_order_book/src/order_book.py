@@ -34,6 +34,20 @@ class OrderBook:
     
     def programmers(self) -> list:
         return list(set(task.programmer for task in self.tasks))
+    
+    def finished_orders(self) -> list:
+        return [task for task in self.tasks if task.is_finished()]
+    
+    def unfinished_orders(self) -> None:
+        return [task for task in self.tasks if not task.is_finished()]
+
+    def mark_finished(self, id: int) -> None:
+        ids = [task.id for task in self.tasks]
+
+        if id in ids:
+            [task.mark_finished() for task in self.unfinished_orders() if task.id == id]
+        else:
+            raise ValueError('The given id is not valid!')
 
 
 if __name__ == '__main__':
@@ -53,6 +67,9 @@ if __name__ == '__main__':
     orders.add_order("program webstore", "Adele", 10)
     orders.add_order("program mobile app for workload accounting", "Eric", 25)
     orders.add_order("program app for practising mathematics", "Adele", 100)
+
+    orders.mark_finished(1)
+    orders.mark_finished(2)
 
     for order in orders.all_orders():
         print(order)
