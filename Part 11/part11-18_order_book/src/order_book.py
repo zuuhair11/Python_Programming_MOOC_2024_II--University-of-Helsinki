@@ -22,15 +22,42 @@ class Task:
         return f'{self.id}: {self.description} ({self.workload} hours), programmer {self.programmer} {status}'
 
 
+class OrderBook:
+    def __init__(self) -> None:
+        self.tasks = []
+
+    def add_order(self, description: str, programmer: str, workload: int) -> None:
+        self.tasks.append(Task(description, programmer, workload))
+
+    def all_orders(self) -> list:
+        return self.tasks
+    
+    def programmers(self) -> list:
+        return list(set(task.programmer for task in self.tasks))
+
+
 if __name__ == '__main__':
-    t1 = Task('program hello world', 'Eric', 3)
-    print(t1.id, t1.description, t1.programmer, t1.workload)
-    print(t1)
-    print(t1.is_finished())
-    t1.mark_finished()
-    print(t1)
-    print(t1.is_finished())
-    t2 = Task('program webstore', 'Adele', 10)
-    t3 = Task('program mobile app for workload accounting', 'Eric', 25)
-    print(t2)
-    print(t3)
+    # t1 = Task('program hello world', 'Eric', 3)
+    # print(t1.id, t1.description, t1.programmer, t1.workload)
+    # print(t1)
+    # print(t1.is_finished())
+    # t1.mark_finished()
+    # print(t1)
+    # print(t1.is_finished())
+    # t2 = Task('program webstore', 'Adele', 10)
+    # t3 = Task('program mobile app for workload accounting', 'Eric', 25)
+    # print(t2)
+    # print(t3)
+
+    orders = OrderBook()
+    orders.add_order("program webstore", "Adele", 10)
+    orders.add_order("program mobile app for workload accounting", "Eric", 25)
+    orders.add_order("program app for practising mathematics", "Adele", 100)
+
+    for order in orders.all_orders():
+        print(order)
+
+    print()
+
+    for programmer in orders.programmers():
+        print(programmer)
