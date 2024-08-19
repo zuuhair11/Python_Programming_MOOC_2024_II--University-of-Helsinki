@@ -34,8 +34,15 @@ class ClimbingArea:
 def sort_by_number_of_routes(areas: list) -> list:
     def by_length(area: ClimbingArea) -> int:
         return area.routes()
-    
+
     return sorted(areas, key=by_length)
+
+
+def sort_by_most_difficult(areas: list) -> list:
+    def by_hardest_route(area: ClimbingArea) -> int:
+        return area.hardest_route().grade
+
+    return sorted(areas, key=by_hardest_route, reverse=True)
 
 
 if __name__ == '__main__':
@@ -54,5 +61,8 @@ if __name__ == '__main__':
     ca3.add_route(ClimbingRoute('Orchard', 8, '6A'))
 
     areas = [ca1, ca2, ca3]
-    for area in sort_by_number_of_routes(areas):
+    # for area in sort_by_number_of_routes(areas):
+    #     print(area)
+
+    for area in sort_by_most_difficult(areas):
         print(area)
