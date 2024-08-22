@@ -33,8 +33,13 @@ def sum_of_all_credits(courses: list) -> int:
 
 
 def sum_of_passed_credits(courses: list) -> int:
-    passed_courses = filter(lambda course: course.grade > 0, courses)
-    return reduce(lambda acc, cur: acc + cur.credits, passed_courses, 0)
+    accepted = filter(lambda course: course.grade > 0, courses)
+    return reduce(lambda acc, cur: acc + cur.credits, accepted, 0)
+
+
+def average(courses: list) -> float:
+    accepted = list(filter(lambda course: course.grade > 0, courses))
+    return reduce(lambda acc, cur: (acc + cur.grade), accepted, 0) / len(accepted)
 
 
 if __name__ == '__main__':
@@ -42,5 +47,5 @@ if __name__ == '__main__':
     s2 = CourseAttempt('Advanced Course in Programming', 0, 5)
     s3 = CourseAttempt('Data Structures and Algorithms', 3, 10)
 
-    credit_sum = sum_of_passed_credits([s1, s2, s3])
-    print(credit_sum)
+    ag = average([s1, s2, s3])
+    print(ag)
