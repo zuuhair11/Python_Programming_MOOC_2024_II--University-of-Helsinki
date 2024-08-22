@@ -32,10 +32,15 @@ def sum_of_all_credits(courses: list) -> int:
     return reduce(lambda acc, cur: (acc.credits if type(acc) == CourseAttempt else acc) + cur.credits, courses)
 
 
+def sum_of_passed_credits(courses: list) -> int:
+    passed_courses = filter(lambda course: course.grade > 0, courses)
+    return reduce(lambda acc, cur: acc + cur.credits, passed_courses, 0)
+
+
 if __name__ == '__main__':
     s1 = CourseAttempt('Introduction to Programming', 5, 5)
-    s2 = CourseAttempt('Advanced Course in Programming', 4, 5)
+    s2 = CourseAttempt('Advanced Course in Programming', 0, 5)
     s3 = CourseAttempt('Data Structures and Algorithms', 3, 10)
 
-    credit_sum = sum_of_all_credits([s1, s2, s3])
+    credit_sum = sum_of_passed_credits([s1, s2, s3])
     print(credit_sum)
