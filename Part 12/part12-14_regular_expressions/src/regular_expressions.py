@@ -15,7 +15,17 @@ def is_dotw(my_string: str) -> bool:
     return bool(re.match('^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)', my_string))
 
 
+def all_vowels(my_string: str) -> bool:
+    """First attempt"""
+    return (re.search(r'\b[aeiou]+\b', my_string))
+
+    """Second attempt"""
+    return bool(re.match(r'\b[aeiou]+\b', my_string))
+
+    """Third attempt"""
+    return bool(re.fullmatch(r'[aeiou]+', my_string))
+
+
 if __name__ == '__main__':
-    print(is_dotw('Mon')) # True
-    print(is_dotw('Fri')) # True
-    print(is_dotw('Tui')) # False
+    print(all_vowels('eioueioieoieou')) # True
+    print(all_vowels('autoooo'))        # False
