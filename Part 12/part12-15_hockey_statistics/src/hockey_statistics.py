@@ -51,6 +51,9 @@ class League:
     @property
     def players(self) -> dict:
         return self.__players
+    
+    def __get_score(self, player: Player) -> int:
+        return player.goals + player.assists
 
     def search_for_player(self, name) -> Player:
         if name in self.players:
@@ -65,6 +68,14 @@ class League:
     def countries(self) -> list:
         countries: set = set([player.nationality for player in self.players.values()])
         return sorted(list(countries))
+    
+    def players_in_team(self, team: str) -> list:
+        players: iter = filter(lambda player: player.team == team, self.__players.values())
+        return sorted(players, key=self.__get_score, reverse=True)
+
+    def players_from_country(self, country: str) -> list:
+        players: list = [player for player in self.__players.values() if player.nationality == country]
+        return sorted(players, key=self.__get_score, reverse=True)
 
 
 class FileHandler:
@@ -127,10 +138,18 @@ class Application:
             print(country)
 
     def players_in_team(self) -> None:
-        pass
+        team: str = input('team: ')
+        print()
+
+        for player in self.__league.players_in_team(team):
+            print(player)
 
     def players_from_country(self) -> None:
-        pass
+        country: str = input('country: ')
+        print()
+
+        for player in self.__league.players_from_country(country):
+            print(player)
 
     def most_points(self) -> None:
         pass
