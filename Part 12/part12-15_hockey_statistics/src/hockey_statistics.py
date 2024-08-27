@@ -77,6 +77,20 @@ class League:
         players: list = [player for player in self.__players.values() if player.nationality == country]
         return sorted(players, key=self.__get_score, reverse=True)
 
+    def most_points(self, n) -> list:
+        def by_score_and_goals_helper(player: Player) -> int:
+            return (self.__get_score(player), player.goals)
+
+        players: list = sorted(self.__players.values(), key=by_score_and_goals_helper, reverse=True)
+        return players[:n]
+
+    def most_goals(self, n: int) -> list:
+        def by_goals_and_games(player: Player) -> int:
+            return (player.goals, -player.games)
+
+        players: list = sorted(self.__players.values(), key=by_goals_and_games, reverse=True)
+        return players[:n]
+
 
 class FileHandler:
     def __init__(self, filename: str) -> None:
@@ -152,10 +166,16 @@ class Application:
             print(player)
 
     def most_points(self) -> None:
-        pass
+        n: int = int(input('how many: '))
+
+        for player in self.__league.most_points(n):
+            print(player)
 
     def most_goals(self) -> None:
-        pass
+        n: int = int(input('how many: '))
+
+        for player in self.__league.most_goals(n):
+            print(player)
 
     def run(self) -> None:
         self.help()
